@@ -1,13 +1,9 @@
-from flask import Flask
+import logging
+import sys
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def hello_world():
-    app.logger.info("Houston, we have a %s", "interesting problem", exc_info=1)
-    return "<p>Hello, World!</p>"
+logger = logging.getLogger(__name__)
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+def handler(event, context):
+    logger.error("Oupsie an error has occured")
+    return "Hello from AWS Lambda using Python" + sys.version + "!"

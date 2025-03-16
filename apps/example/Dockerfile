@@ -1,9 +1,13 @@
-FROM python:3.11-slim
+FROM public.ecr.aws/lambda/python:3.12
 
-COPY ./requirements.txt requirements.txt
+# Copy requirements.txt
+COPY requirements.txt ${LAMBDA_TASK_ROOT}
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Install the specified packages
+RUN pip install -r requirements.txt
 
-COPY ./main.py main.py
+# Copy function code
+COPY main.py ${LAMBDA_TASK_ROOT}
 
-CMD ["gunicorn","--bind","0.0.0.0:5000","main:app"]
+# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
+CMD [ "main.handler" ]

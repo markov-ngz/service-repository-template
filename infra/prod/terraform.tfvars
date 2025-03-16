@@ -1,0 +1,1 @@
+ecr_registry_name = "example_ns/example"
