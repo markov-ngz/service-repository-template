@@ -1,0 +1,27 @@
+name: Build & Deploy 
+
+on:
+  pull_request:
+    branches: main
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Test
+              run: echo TEST
+
+    build_docker_image:
+        needs: test
+        if: ${{ github.head_ref == 'example' }}
+        uses: markov-ngz/basic-service-template/.github/workflows/build.yaml@main
+        secrets: inherit
+        with:
+            application_working_directory: apps/example
+            image_name: ${{ vars.TF_VAR_ecr_registry_name}}/example # the tag is set to the commit id 
+            registry_projet: ${{ vars.AWS_PROJECT_ID}}
+            registry_location: ${{ vars.AWS_REGION}}
+    deploy:
+        needs: build_docker_image
+        uses:  markov-ngz/basic-service-template/.github/workflows/deploy.yaml@main
+        secrets: inherit
