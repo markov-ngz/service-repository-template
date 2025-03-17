@@ -12,8 +12,14 @@ on:
         description: 'Name of the image to push to the registry'
         required: true
         type: string
-
-      
+      registry_projet:
+        description: 'GCP artifact registry project'
+        required: true
+        type: string
+      registry_location:
+        description: 'GCP artifact registry location'
+        required: true
+        type: string
 jobs: 
   build:
     runs-on: ubuntu-latest
