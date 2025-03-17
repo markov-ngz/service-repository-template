@@ -48,7 +48,7 @@ jobs:
         run: echo $IMAGE_NAME
 
       - name: Export short image name # just image_name + tag 
-        run : echo "$SHORT_IMAGE_NAME=${{ inputs.image_name }}:${{ github.sha }}" >> $GITHUB_ENV
+        run : echo "SHORT_IMAGE_NAME=${{ inputs.image_name }}:${{ github.sha }}" >> $GITHUB_ENV
 
       - run: aws ecr get-login-password --region $REGISTRY_LOCATION | docker login --username AWS --password-stdin $REGISTRY_PROJECT.dkr.ecr.$REGISTRY_LOCATION.amazonaws.com/${{ inputs.image_name }}
 
