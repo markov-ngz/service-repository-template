@@ -1,4 +1,4 @@
-variable "ecr_registry_name" {
+variable "example_registry_name" {
   type        = string
   description = "Name of the container registry name"
 }

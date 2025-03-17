@@ -1,7 +1,3 @@
-data "aws_ecr_image" "service_image" {
-  repository_name = data.aws_ecr_repository.example.name
-  image_tag       = var.example_image_tag
-}
 
 resource "aws_lambda_function_url" "example_url" {
   function_name = aws_lambda_function.example.function_name

@@ -6,14 +6,32 @@ on:
 
 jobs:
     test:
+        if: ${{ github.head_ref == 'example' }}
         runs-on: ubuntu-latest
+        defaults:
+            run:
+              working-directory: apps/example      
         steps: 
-            - name: Test
-              run: echo TEST
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Python
+              uses: actions/setup-python@v5
+
+            - name: Check dir
+              run: ls 
+
+            - name: Install dependencies
+              run: pip install -r requirements.txt
+
+            - name: Install pytest
+              run: pip install pytest
+              
+            - name: Run pytest
+              run: python -m pytest
 
     build_docker_image:
         needs: test
-        if: ${{ github.head_ref == 'example' }}
         uses: markov-ngz/basic-service-template/.github/workflows/build.yaml@main
         secrets: inherit
         with:
@@ -21,7 +39,3 @@ jobs:
             image_name: ${{ vars.TF_VAR_ecr_registry_name}}/example # the tag is set to the commit id 
             registry_projet: ${{ vars.AWS_PROJECT_ID}}
             registry_location: ${{ vars.AWS_REGION}}
-    deploy:
-        needs: build_docker_image
-        uses:  markov-ngz/basic-service-template/.github/workflows/deploy.yaml@main
-        secrets: inherit

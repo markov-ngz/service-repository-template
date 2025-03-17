@@ -46,13 +46,11 @@ jobs:
 
       - run: aws ecr get-login-password --region $REGISTRY_LOCATION | docker login --username AWS --password-stdin $REGISTRY_PROJECT.dkr.ecr.$REGISTRY_LOCATION.amazonaws.com/${{ inputs.image_name }}
 
+      
       - name: Build docker image
         working-directory: ${{ inputs.application_working_directory}}
         run: |
-          docker build --secret id=gh_token,env=GH_TOKEN --secret id=gh_user,env=GH_USER -t $IMAGE_NAME . 
-        env:
-            GH_USER: ${{ github.repository_owner }}
-            GH_TOKEN: ${{ secrets.GH_PAT_PYTHON_LIB_LINTER }}
+          docker build -t $IMAGE_NAME . 
 
       - name: Push Docker image to Artifact Registry
         run: |

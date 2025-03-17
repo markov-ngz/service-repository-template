@@ -1,11 +1,10 @@
 # manually create the registry yourself : 
-resource "aws_ecr_repository" "example" {
-  name                 = var.ecr_registry_name
-  image_tag_mutability = "MUTABLE"
+data "aws_ecr_repository" "example" {
+  name                 = var.example_registry_name
 
-  force_delete = true # registry will be deleted even if it is not empty ( all images will be lost )
+}
 
-  image_scanning_configuration {
-    scan_on_push = false
-  }
+data "aws_ecr_image" "service_image" {
+  repository_name = data.aws_ecr_repository.example.name
+  image_tag       = var.example_image_tag
 }
