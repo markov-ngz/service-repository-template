@@ -12,6 +12,10 @@ on:
         description: 'Name of the image to push to the registry'
         required: true
         type: string
+      image_tag_variable:
+        description: 'Name of the terraform image tag variable'
+        required: true
+        type: string
       registry_project:
         description: 'GCP artifact registry project'
         required: true
@@ -47,9 +51,6 @@ jobs:
       - name: Print image name # to debug 
         run: echo $IMAGE_NAME
 
-      - name: Export short image name # just image_name + tag 
-        run : echo "SHORT_IMAGE_NAME=${{ inputs.image_name }}:${{ github.sha }}" >> $GITHUB_ENV
-
       - run: aws ecr get-login-password --region $REGISTRY_LOCATION | docker login --username AWS --password-stdin $REGISTRY_PROJECT.dkr.ecr.$REGISTRY_LOCATION.amazonaws.com/${{ inputs.image_name }}
 
       
@@ -63,6 +64,6 @@ jobs:
           docker push $IMAGE_NAME
 
       - name: Update Repository variable
-        run: gh variable set TF_VAR_${{ inputs.application_working_directory}} --body $SHORT_IMAGE_NAME -r ${{ github.repository }}
+        run: gh variable set TF_VAR_${{ inputs.image_tag_variable }} --body ${{ github.sha }} -r ${{ github.repository }}
         env:
           GH_TOKEN: ${{ secrets.GH_PAT_WRITE_VARIABLES }}
