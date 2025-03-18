@@ -44,3 +44,12 @@ NOTES : For AWS authentication,  Workload identity provider was not used as a bu
 6. Make a second pull request from main to prod
 Your application is deployed 
 
+## Docs 
+
+### Resource Map used for the example
+
+<img src="docs/example_resource_map.png" width=80%>
+
+### Git Flow
+
+<img src="docs/git_flow.png" width=50%>
