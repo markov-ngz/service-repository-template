@@ -36,7 +36,7 @@ jobs:
         secrets: inherit
         with:
             application_working_directory: apps/example
-            image_name: ${{ vars.TF_VAR_example_image_regsitry }} # the tag is set to the commit id 
+            image_name: ${{ vars.TF_VAR_EXAMPLE_IMAGE_REGISTRY }} # the tag is set to the commit id 
             image_tag_variable: "example_image_tag"
             registry_project: ${{ vars.AWS_PROJECT_ID}}
             registry_location: ${{ vars.AWS_REGION}}
