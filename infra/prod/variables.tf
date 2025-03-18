@@ -1,4 +1,4 @@
-variable "example_registry_name" {
+variable "example_image_registry" {
   type        = string
   description = "Name of the container registry name"
 }
