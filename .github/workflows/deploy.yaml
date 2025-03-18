@@ -41,7 +41,7 @@ jobs:
             working-directory: infra/prod
             env: 
               # repository 
-              TF_VAR_example_registry_name: ${{ vars.TF_VAR_EXAMPLE_IMAGE_REGISTRY }}
+              TF_VAR_example_image_registry: ${{ vars.TF_VAR_EXAMPLE_IMAGE_REGISTRY }}
               TF_VAR_alerting_email : ${{ secrets.TF_VAR_alerting_email }}
               # specific to application
               TF_VAR_example_image_tag: ${{ vars.TF_VAR_example_image_tag }}
