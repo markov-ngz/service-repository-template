@@ -22,9 +22,7 @@ As basics , the following repository's variables & secrets needs to be set up :
 ```
 AWS_PROJECT_ID=<aws project id>
 AWS_REGION=<aws project region>
-
-TF_VAR_ecr_registry_name=<name of the used container registry>
-
+TF_VAR_<app_name>_image_registry=<the image application registry>
 ```
 - Secrets
 ```
