@@ -1,6 +1,6 @@
 # manually create the registry yourself : 
 data "aws_ecr_repository" "example" {
-  name                 = var.example_registry_name
+  name                 = var.example_image_registry
 
 }
 
